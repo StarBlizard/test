@@ -6,31 +6,32 @@ class Product {
   }
 
   updatePrice() {
-    return (this.updaters[this.name] || this.updaters.default)();
+    return (this.updaters[this.name] || this.updaters.default).call(this);
   }
 
   updaters = {
-    default: function() {
-      if (this.price < 0 || isNaN(this.price)) { this.price = 0; }
-      if (!this.price || !this.sellIn) { return this; }
+    'Mega Coverage': function() { return this; },
 
-      --this.price;
+    'Full Coverage': function() {
+      --this.sellIn;
 
-      this.sellIn && --this.sellIn;
-      this.sellIn || --price;
+      if (this.price > 50)   { return this;    }
+      if (isNaN(this.price)) { this.price = 0; }
+
+      ++this.price;
+
+      this.sellIn > 0 || ++this.price;
 
       return this;
     },
 
-    'Full Coverage': function() {
-      if (this.price < 0 || isNaN(this.price)) { this.price = 0; }
-      if (!this.sellIn) { return this; }
+    default: function() {
+      if (isNaN(this.price)) { this.price = 0; }
 
-      this.sellIn && --this.sellIn;
+      --this.price;
+      --this.sellIn;
 
-      if (this.price > 50) { return this; }
-
-      ++this.price;
+      this.sellIn > 0 || --this.price;
 
       return this;
     }
