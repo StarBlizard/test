@@ -1,3 +1,6 @@
+const fs       = require('fs');
+const { join } = require('path');
+
 const { Product, CarInsurance } = require('../src/coTest');
 
 const productsAtDayZero = [
@@ -14,7 +17,31 @@ const productsAtDayZero = [
 
 const carInsurance = new CarInsurance(productsAtDayZero);
 
+let printString = '';
+
 for (let i = 1; i <= 30; i += 1) {
   console.log(`--------------------------- Day ${i} ------------------------------`);
   console.table(carInsurance.updateProductPrices());
+
+  if (process.env.npm_config_print) {
+    printString += `--------------------------- Day ${i} ------------------------------\n`;
+
+    printString += JSON.stringify(
+      carInsurance.products.reduce( (result, { updaters, name, ...data }) => {
+        result[ name ] = data;
+        return result;
+      }, {}),
+      null,
+      2
+    ) + '\n';
+  }
+}
+
+if (process.env.npm_config_print) {
+  const path = join(process.cwd(), 'after30DaysResult.txt');
+
+  fs.writeFile(path, printString, (err, file) => {
+    if (err) { throw err; }
+    console.log('Created Result File:', path);
+  });
 }
