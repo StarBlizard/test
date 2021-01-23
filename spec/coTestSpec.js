@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 const { Product, CarInsurance } = require('../src/coTest');
 
 describe('Co Test', function() {
-  it('should be able to not update \'Mega Coverage products\'', function() {
+  it('should be able to not update \'Mega Coverage\' products', function() {
     const sellIn = 12;
     const price  = 80;
 
@@ -53,7 +53,7 @@ describe('Co Test', function() {
     expect(insurance.products[0].sellIn).equal(-2);
   });
 
-  it('should be able to correctly update \'Special Full Coverage products\'', function() {
+  it('should be able to correctly update \'Special Full Coverage\' products', function() {
     const insuranceA = new CarInsurance([ new Product('Special Full Coverage', 15, 20) ]);
     const insuranceB = new CarInsurance([ new Product('Special Full Coverage', 10, 49) ]);
     const insuranceC = new CarInsurance([ new Product('Special Full Coverage',  5, 49) ]);
@@ -131,7 +131,7 @@ describe('Co Test', function() {
     expect(insuranceC.products[0].sellIn).equal(-2);
   });
 
-  it('should be able to correctly update \'Super Sale products\'', function() {
+  it('should be able to correctly update \'Super Sale\' products', function() {
     const price  = 40;
     const sellIn = 3;
 
@@ -171,6 +171,49 @@ describe('Co Test', function() {
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(22);
+    expect(insurance.products[0].sellIn).equal(-3);
+  });
+
+  it('should be able to correctly update any other products', function() {
+    const price  = 10;
+    const sellIn = 3;
+
+    const insurance = new CarInsurance([ new Product('foo', sellIn, price) ]);
+
+    // day 1
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(9);
+    expect(insurance.products[0].sellIn).equal(2);
+
+    // day 2
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(8);
+    expect(insurance.products[0].sellIn).equal(1);
+
+    // day 3
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(7);
+    expect(insurance.products[0].sellIn).equal(0);
+
+    // day 4
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(5);
+    expect(insurance.products[0].sellIn).equal(-1);
+
+    // day 5
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(3);
+    expect(insurance.products[0].sellIn).equal(-2);
+
+    // day 6
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(1);
     expect(insurance.products[0].sellIn).equal(-3);
   });
 });
