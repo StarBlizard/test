@@ -9,11 +9,13 @@ describe('Co Test', function() {
 
     const insurance = new CarInsurance([ new Product('Mega Coverage', sellIn, price) ]);
 
+    // day 1
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(price );
     expect(insurance.products[0].sellIn).equal(sellIn);
 
+    // day 2
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(price );
@@ -26,28 +28,32 @@ describe('Co Test', function() {
 
     const insurance = new CarInsurance([ new Product('Full Coverage', sellIn, price) ]);
 
+    // day 1
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(1);
     expect(insurance.products[0].sellIn).equal(1);
 
+    // day 2
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(2);
     expect(insurance.products[0].sellIn).equal(0);
 
+    // day 3
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(4);
     expect(insurance.products[0].sellIn).equal(-1);
 
+    // day 4
     insurance.updateProductPrices();
 
     expect(insurance.products[0].price ).equal(6);
     expect(insurance.products[0].sellIn).equal(-2);
   });
 
-  it.only('should be able to correctly update \'Special Full Coverage products\'', function() {
+  it('should be able to correctly update \'Special Full Coverage products\'', function() {
     const insuranceA = new CarInsurance([ new Product('Special Full Coverage', 15, 20) ]);
     const insuranceB = new CarInsurance([ new Product('Special Full Coverage', 10, 49) ]);
     const insuranceC = new CarInsurance([ new Product('Special Full Coverage',  5, 49) ]);
@@ -123,5 +129,48 @@ describe('Co Test', function() {
 
     expect(insuranceC.products[0].price ).equal(0);
     expect(insuranceC.products[0].sellIn).equal(-2);
+  });
+
+  it('should be able to correctly update \'Super Sale products\'', function() {
+    const price  = 40;
+    const sellIn = 3;
+
+    const insurance = new CarInsurance([ new Product('Super Sale', sellIn, price) ]);
+
+    // day 1
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(38);
+    expect(insurance.products[0].sellIn).equal(2);
+
+    // day 2
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(36);
+    expect(insurance.products[0].sellIn).equal(1);
+
+    // day 3
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(34);
+    expect(insurance.products[0].sellIn).equal(0);
+
+    // day 4
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(30);
+    expect(insurance.products[0].sellIn).equal(-1);
+
+    // day 5
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(26);
+    expect(insurance.products[0].sellIn).equal(-2);
+
+    // day 6
+    insurance.updateProductPrices();
+
+    expect(insurance.products[0].price ).equal(22);
+    expect(insurance.products[0].sellIn).equal(-3);
   });
 });
