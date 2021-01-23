@@ -21,6 +21,7 @@ class Product {
       ++this.price;
 
       this.sellIn > -1 || ++this.price;
+      this.price > 49  && (this.price = 50);
 
       return this;
     },
@@ -33,13 +34,15 @@ class Product {
         return this;
       }
 
-      if (this.price >= 50)   { return this;    }
+      if (this.price > 49)   { return this;    }
       if (isNaN(this.price)) { this.price = 0; }
 
       ++this.price;
 
-      this.sellIn < 11 || ++this.price;
-      this.sellIn < 6  || ++this.price;
+      this.sellIn < 10 && ++this.price;
+      this.sellIn < 5  && ++this.price;
+
+      this.price > 49  && (this.price = 50);
 
       return this;
     },
