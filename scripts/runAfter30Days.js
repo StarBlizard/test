@@ -16,5 +16,5 @@ const carInsurance = new CarInsurance(productsAtDayZero);
 
 for (let i = 1; i <= 30; i += 1) {
   console.log(`--------------------------- Day ${i} ------------------------------`);
-  console.table(carInsurance.updatePrice());
+  console.table(carInsurance.updateProductPrices());
 }

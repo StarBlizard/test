@@ -70,13 +70,12 @@ class Product {
 
 class CarInsurance {
   constructor(products = []) {
-    (products[0] && products[0] instanceof Product) || (products = products.map( product => new Product(product) ));
     this.products = products;
   }
 
-  updatePrice() {
+  updateProductPrices() {
     this.products = this.products.map( product => product.updatePrice() );
-    return this;
+    return this.products;
   }
 }
 
