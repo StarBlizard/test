@@ -15,12 +15,12 @@ class Product {
     'Full Coverage': function() {
       --this.sellIn;
 
-      if (this.price > 50)   { return this;    }
+      if (this.price > 49)   { return this;    }
       if (isNaN(this.price)) { this.price = 0; }
 
       ++this.price;
 
-      this.sellIn > 0 || ++this.price;
+      this.sellIn > -1 || ++this.price;
 
       return this;
     },
@@ -28,12 +28,12 @@ class Product {
     'Special Full Coverage': function() {
       --this.sellIn;
 
-      if (this.sellIn < 1) {
+      if (this.sellIn < 0) {
         this.price = 0;
         return this;
       }
 
-      if (this.price > 50)   { return this;    }
+      if (this.price >= 50)   { return this;    }
       if (isNaN(this.price)) { this.price = 0; }
 
       ++this.price;
@@ -50,7 +50,7 @@ class Product {
       this.price -= 2;
       --this.sellIn;
 
-      this.sellIn > 0 || (this.price -= 2);
+      this.sellIn > -1 || (this.price -= 2);
 
       return this;
     },
@@ -61,7 +61,7 @@ class Product {
       --this.price;
       --this.sellIn;
 
-      this.sellIn > 0 || --this.price;
+      this.sellIn > -1 || --this.price;
 
       return this;
     }
@@ -76,7 +76,7 @@ class CarInsurance {
 
   updatePrice() {
     this.products = this.products.map( product => product.updatePrice() );
-    return this.products;
+    return this;
   }
 }
 
