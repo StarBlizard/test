@@ -44,6 +44,17 @@ class Product {
       return this;
     },
 
+    'Super Sale': function() {
+      if (isNaN(this.price)) { this.price = 0; }
+
+      this.price -= 2;
+      --this.sellIn;
+
+      this.sellIn > 0 || (this.price -= 2);
+
+      return this;
+    },
+
     default: function() {
       if (isNaN(this.price)) { this.price = 0; }
 
